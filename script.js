@@ -455,14 +455,6 @@ function startQuestionTimer() {
     }, 1000);
 }
 
-// Function to shuffle an array (Fisher-Yates (Knuth) shuffle algorithm)
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-    }
-}
-
 
 function loadQuestion() {
     if (currentQuestionIndex >= questions.length) {
@@ -491,11 +483,7 @@ function loadQuestion() {
         skipButton.style.display = 'none';
     }
 
-    // Shuffle options before displaying them
-    const shuffledOptions = [...currentQuestion.options]; // Create a copy to shuffle
-    shuffleArray(shuffledOptions);
-
-    shuffledOptions.forEach(option => {
+    currentQuestion.options.forEach(option => {
         const button = document.createElement('button');
         button.classList.add('option');
         button.textContent = option;
@@ -833,10 +821,6 @@ function displayDetailedQuestions(category) {
             <ul class="detailed-options">
         `;
 
-        // Ensure options displayed here are from the original, unshuffled list for consistency
-        // or if you want them to be in the order they were presented in the quiz,
-        // you would need to store the shuffled order with the question.
-        // For simplicity, showing original options here.
         q.options.forEach(option => {
             let optionClass = '';
             if (q.userAnswer === option) {
