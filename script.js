@@ -384,6 +384,14 @@ showSkippedQuestionsButton.addEventListener('click', () => displayDetailedQuesti
 backToResultsButton.addEventListener('click', backToSummaryScreen);
 
 
+// Function to shuffle an array (Fisher-Yates algorithm)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 // --- Name Input and Screen Flow ---
 function handleNameInputAndShowStartScreen() {
     const inputName = userNameInput.value.trim();
@@ -400,6 +408,10 @@ function handleNameInputAndShowStartScreen() {
 
 
 function startQuiz() { // startScreen থেকে কুইজ শুরু করার ফাংশন
+    // Shuffle questions at the start of the quiz
+    shuffleArray(questions); // Add this line to shuffle questions
+    questions.forEach(q => shuffleArray(q.options)); // Shuffle options for each question
+
     startScreen.classList.remove('active');
     quizScreen.classList.add('active');
     resetQuizState(); // কুইজ স্টেট রিসেট করুন কুইজ শুরু করার আগে
